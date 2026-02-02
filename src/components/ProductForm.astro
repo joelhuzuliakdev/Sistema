@@ -1,0 +1,75 @@
+---
+const { onSubmit } = Astro.props;
+---
+
+<form
+  class="bg-white p-4 rounded shadow-md space-y-3"
+  on:submit={onSubmit}
+>
+    <input
+        type="text"
+        name="code"
+        placeholder="Código"
+        class="w-full border border-gray-300 p-2 rounded"
+        required
+    />
+
+    <input
+        type="text"
+        name="name"
+        placeholder="Nombre del producto"
+        class="w-full border border-gray-300 p-2 rounded"
+        required
+    />
+
+    <input
+        type="number"
+        step="0.01"
+        name="price_minorista"
+        placeholder="Precio minorista"
+        class="w-full border border-gray-300 p-2 rounded"
+        required
+    />
+
+    <input
+        type="number"
+        step="0.01"
+        name="price_50"
+        placeholder="Precio x50 (opcional)"
+        class="w-full border border-gray-300 p-2 rounded"
+    />
+
+    <input
+        type="number"
+        step="0.01"
+        name="price_100"
+        placeholder="Precio x100 (opcional)"
+        class="w-full border border-gray-300 p-2 rounded"
+    />
+
+    <input
+        type="number"
+        step="0.01"
+        name="price_bulto"
+        placeholder="Precio bulto cerrado (opcional)"
+        class="w-full border border-gray-300 p-2 rounded"
+    />
+
+    <select
+        name="rubro"
+        class="w-full border border-gray-300 p-2 rounded"
+        required
+    >
+        <option value="">Seleccionar rubro</option>
+        <option value="descartable">Descartable</option>
+        <option value="caramelos">Caramelos</option>
+        <option value="libreria">Librería</option>
+    </select>
+
+    <button
+        type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold transition"
+    >
+        Guardar
+    </button>
+</form>

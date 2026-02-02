@@ -1,0 +1,29 @@
+---
+const { products = [], onEdit, onDelete } = Astro.props;
+---
+
+<table class="w-full bg-white shadow-md rounded mt-4">
+    <thead>
+        <tr class="bg-gray-200">
+        <th class="p-2">Código</th>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Precio</th>
+        <th class="p-2">Rubro</th>
+        <th class="p-2">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {products.map(p => (
+        <tr class="border-b">
+            <td class="p-2">{p.code}</td>
+            <td class="p-2">{p.name}</td>
+            <td class="p-2">${p.price_minorista}</td>
+            <td class="p-2">{p.rubro}</td>
+            <td class="p-2 flex gap-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded" on:click={() => onEdit(p)}>Editar</button>
+            <button class="bg-red-600 text-white px-2 py-1 rounded" on:click={() => onDelete(p.id)}>Eliminar</button>
+            </td>
+        </tr>
+        ))}
+    </tbody>
+</table>

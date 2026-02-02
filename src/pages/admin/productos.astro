@@ -1,0 +1,43 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import ProductForm from '../../components/ProductForm.astro';
+import ProductList from '../../components/ProductList.astro';
+
+// Simulación de datos (luego se conecta con DB)
+let products = [
+    { id: 1, code: "001", name: "Vaso plástico", price_minorista: 100, rubro: "descartable" },
+    { id: 2, code: "002", name: "Caramelos surtidos", price_minorista: 200, rubro: "caramelos" },
+];
+
+function handleSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const nuevo = {
+        id: products.length + 1,
+        code: formData.get("code"),
+        name: formData.get("name"),
+        price_minorista: formData.get("price_minorista"),
+        price_50: formData.get("price_50"),
+        price_100: formData.get("price_100"),
+        price_bulto: formData.get("price_bulto"),
+        rubro: formData.get("rubro"),
+    };
+    products.push(nuevo);
+    alert("Producto agregado!");
+}
+
+function handleEdit(product) {
+    lert("Editar producto: " + product.name);
+}
+
+function handleDelete(id) {
+    products = products.filter(p => p.id !== id);
+    alert("Producto eliminado!");
+}
+---
+
+<AdminLayout title="Gestión de Productos">
+    <h1 class="text-2xl font-bold mb-4">Productos</h1>
+    <ProductForm onSubmit={handleSubmit} />
+    <ProductList products={products} onEdit={handleEdit} onDelete={handleDelete} />
+</AdminLayout>
