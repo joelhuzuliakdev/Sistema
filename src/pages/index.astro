@@ -1,8 +1,102 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
-	
+<Layout title="Login">
+	<div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+		<!-- Elementos decorativos de fondo -->
+		<div class="absolute inset-0 overflow-hidden">
+		<div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+		<div class="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+		<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
+		</div>
+
+		<!-- Grid pattern sutil -->
+		<div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+
+		<!-- Formulario -->
+		<form class="relative bg-white/95 backdrop-blur-xl p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20 transform transition-all duration-300 hover:shadow-blue-500/20">
+		<!-- Logo o icono -->
+		<div class="mb-8 text-center">
+			<div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl mb-4 shadow-lg">
+			<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+			</svg>
+			</div>
+			<h1 class="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-2">
+			Bienvenido
+			</h1>
+			<p class="text-slate-500 text-sm">Ingresa tus credenciales para continuar</p>
+		</div>
+
+		<!-- Campo Usuario -->
+		<div class="mb-5 group">
+			<label for="username" class="block text-sm font-semibold text-slate-700 mb-2 transition-colors group-focus-within:text-blue-600">
+			Usuario
+			</label>
+			<div class="relative">
+			<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+				<svg class="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+				</svg>
+			</div>
+			<input 
+				type="text" 
+				id="username"
+				name="username"
+				placeholder="Ingresa tu usuario" 
+				required
+				autocomplete="username"
+				class="w-full pl-12 pr-4 py-3.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 bg-slate-50/50 text-slate-800 placeholder:text-slate-400"
+			/>
+			</div>
+		</div>
+
+		<!-- Campo Contraseña -->
+		<div class="mb-6 group">
+			<label for="password" class="block text-sm font-semibold text-slate-700 mb-2 transition-colors group-focus-within:text-blue-600">
+			Contraseña
+			</label>
+			<div class="relative">
+			<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+				<svg class="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+				</svg>
+			</div>
+			<input 
+				type="password" 
+				id="password"
+				name="password"
+				placeholder="Ingresa tu contraseña" 
+				required
+				autocomplete="current-password"
+				class="w-full pl-12 pr-4 py-3.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 bg-slate-50/50 text-slate-800 placeholder:text-slate-400"
+			/>
+			</div>
+		</div>
+
+		<!-- Recordarme -->
+		<div class="mb-6">
+			<label class="flex items-center cursor-pointer group/check">
+			<input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 focus:ring-offset-0 transition-all" />
+			<span class="ml-2.5 text-sm text-slate-600 group-hover/check:text-slate-800 transition-colors">Mantener sesión iniciada</span>
+			</label>
+		</div>
+
+		<!-- Botón -->
+		<button 
+			type="submit" 
+			class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+		>
+			Iniciar Sesión
+		</button>
+
+		<!-- Footer -->
+		<div class="mt-8 text-center">
+			<p class="text-xs text-slate-500">
+			¿Necesitas ayuda? Contacta al <span class="text-blue-600 font-medium">administrador</span>
+			</p>
+		</div>
+		</form>
+	</div>
 </Layout>
