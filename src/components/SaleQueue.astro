@@ -1,0 +1,19 @@
+---
+const { sales = [], onCharge } = Astro.props;
+---
+
+<div class="bg-white p-4 rounded shadow-md">
+    <h2 class="text-xl font-bold mb-2">Ventas pendientes</h2>
+    {sales.length === 0 ? (
+        <p>No hay ventas pendientes.</p>
+    ) : (
+        <ul>
+        {sales.map(s => (
+            <li class="border-b p-2 flex justify-between">
+            <span>Venta #{s.id} - Total: ${s.total}</span>
+            <button class="bg-blue-600 text-white px-2 py-1 rounded" on:click={() => onCharge(s)}>Cobrar</button>
+            </li>
+        ))}
+        </ul>
+    )}
+</div>

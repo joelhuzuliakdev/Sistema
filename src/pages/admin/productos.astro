@@ -1,19 +1,13 @@
 ---
-import AdminLayout from '../../layouts/AdminLayout.astro';
-import ProductForm from '../../components/ProductForm.astro';
-import ProductList from '../../components/ProductList.astro';
+import Layout from '../../layouts/Layout.astro';
+import { getProducts, addProduct, deleteProduct } from '../../lib/products.js';
 
-// Simulación de datos (luego se conecta con DB)
-let products = [
-    { id: 1, code: "001", name: "Vaso plástico", price_minorista: 100, rubro: "descartable" },
-    { id: 2, code: "002", name: "Caramelos surtidos", price_minorista: 200, rubro: "caramelos" },
-];
+let products = getProducts();
 
 function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const nuevo = {
-        id: products.length + 1,
+    addProduct({
         code: formData.get("code"),
         name: formData.get("name"),
         price_minorista: formData.get("price_minorista"),
@@ -21,23 +15,54 @@ function handleSubmit(e) {
         price_100: formData.get("price_100"),
         price_bulto: formData.get("price_bulto"),
         rubro: formData.get("rubro"),
-    };
-    products.push(nuevo);
-    alert("Producto agregado!");
+    });
+    products = getProducts();
 }
-
-function handleEdit(product) {
-    lert("Editar producto: " + product.name);
-}
-
 function handleDelete(id) {
-    products = products.filter(p => p.id !== id);
-    alert("Producto eliminado!");
+    deleteProduct(id);
+    products = getProducts();
 }
 ---
 
-<AdminLayout title="Gestión de Productos">
+<Layout title="Gestión de Productos">
     <h1 class="text-2xl font-bold mb-4">Productos</h1>
-    <ProductForm onSubmit={handleSubmit} />
-    <ProductList products={products} onEdit={handleEdit} onDelete={handleDelete} />
-</AdminLayout>
+    <form class="bg-white p-4 rounded shadow-md space-y-2" on:submit={handleSubmit}>
+        <input type="text" name="code" placeholder="Código" class="w-full border p-2" required />
+        <input type="text" name="name" placeholder="Nombre" class="w-full border p-2" required />
+        <input type="number" name="price_minorista" placeholder="Precio minorista" class="w-full border p-2" required />
+        <input type="number" name="price_50" placeholder="Precio x50" class="w-full border p-2" />
+        <input type="number" name="price_100" placeholder="Precio x100" class="w-full border p-2" />
+        <input type="number" name="price_bulto" placeholder="Precio bulto" class="w-full border p-2" />
+        <select name="rubro" class="w-full border p-2" required>
+        <option value="descartable">Descartable</option>
+        <option value="caramelos">Caramelos</option>
+        <option value="libreria">Librería</option>
+        </select>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
+    </form>
+
+    <table class="w-full bg-white shadow-md rounded mt-4">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="p-2">Código</th>
+            <th class="p-2">Nombre</th>
+            <th class="p-2">Precio</th>
+            <th class="p-2">Rubro</th>
+            <th class="p-2">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {products.map(p => (
+            <tr>
+            <td class="p-2">{p.code}</td>
+            <td class="p-2">{p.name}</td>
+            <td class="p-2">${p.price_minorista}</td>
+            <td class="p-2">{p.rubro}</td>
+            <td class="p-2">
+                <button class="bg-red-600 text-white px-2 py-1 rounded" on:click={() => handleDelete(p.id)}>Eliminar</button>
+            </td>
+            </tr>
+        ))}
+        </tbody>
+    </table>
+</Layout>

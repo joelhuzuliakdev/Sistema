@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SaleQueue from '../../components/SaleQueue.astro';
+import PaymentForm from '../../components/PaymentForm.astro';
+
+let sales = [
+    { id: 1, total: 300 },
+    { id: 2, total: 500 },
+];
+
+let selectedSale = null;
+
+function handleCharge(sale) {
+    selectedSale = sale;
+}
+
+function handleConfirm(metodo, totalFinal) {
+    alert(`Venta cobrada con ${metodo}. Total final: $${totalFinal}`);
+    sales = sales.filter(s => s.id !== selectedSale.id);
+    selectedSale = null;
+}
+---
+
+<Layout title="Ventas">
+    <h1 class="text-2xl font-bold mb-4">Ventas</h1>
+    <SaleQueue sales={sales} onCharge={handleCharge} />
+    {selectedSale && <PaymentForm sale={selectedSale} onConfirm={handleConfirm} />}
+</Layout>

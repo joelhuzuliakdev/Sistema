@@ -1,0 +1,29 @@
+---
+const { sale, onConfirm } = Astro.props;
+
+function calcularTotal(metodo, total) {
+    switch(metodo) {
+        case "debito": return total * 1.08;
+        case "credito": return total * 1.15;
+        default: return total;
+    }
+}
+---
+
+<form class="bg-white p-4 rounded shadow-md mt-4" on:submit={(e) => {
+    e.preventDefault();
+    const metodo = e.target.metodo.value;
+    const totalFinal = calcularTotal(metodo, sale.total);
+    onConfirm(metodo, totalFinal);
+    }}>
+    <h2 class="text-xl font-bold mb-2">Cobrar venta #{sale.id}</h2>
+    <p>Total original: ${sale.total}</p>
+    <select name="metodo" class="w-full border p-2 mb-2" required>
+        <option value="efectivo">Efectivo</option>
+        <option value="transferencia">Transferencia</option>
+        <option value="debito">Débito (+8%)</option>
+        <option value="credito">Crédito (+15%)</option>
+        <option value="pendiente">Pendiente</option>
+    </select>
+    <button class="bg-green-600 text-white px-4 py-2 rounded">Confirmar cobro</button>
+</form>

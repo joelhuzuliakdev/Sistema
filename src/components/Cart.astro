@@ -1,0 +1,32 @@
+---
+const { items = [], onSend } = Astro.props;
+const total = items.reduce((acc, i) => acc + i.price_minorista * i.cantidad, 0);
+---
+
+<div class="bg-white p-4 rounded shadow-md mt-4">
+    <h2 class="text-xl font-bold mb-2">Carrito</h2>
+    {items.length === 0 ? (
+        <p>No hay productos en el carrito.</p>
+    ) : (
+        <table class="w-full">
+        <thead>
+            <tr class="bg-gray-200">
+            <th class="p-2">Producto</th>
+            <th class="p-2">Cantidad</th>
+            <th class="p-2">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {items.map(i => (
+            <tr>
+                <td class="p-2">{i.name}</td>
+                <td class="p-2">{i.cantidad}</td>
+                <td class="p-2">${i.price_minorista * i.cantidad}</td>
+            </tr>
+            ))}
+        </tbody>
+        </table>
+    )}
+    <p class="mt-2 font-bold">Total: ${total}</p>
+    <button class="bg-blue-600 text-white px-4 py-2 rounded mt-2" on:click={onSend}>Enviar pedido a caja</button>
+</div>

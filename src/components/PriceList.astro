@@ -1,0 +1,26 @@
+---
+const { products = [], onAdd } = Astro.props;
+---
+
+<table class="w-full bg-white shadow-md rounded">
+    <thead>
+        <tr class="bg-gray-200">
+        <th class="p-2">Código</th>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Precio</th>
+        <th class="p-2">Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {products.map(p => (
+        <tr class="border-b">
+            <td class="p-2">{p.code}</td>
+            <td class="p-2">{p.name}</td>
+            <td class="p-2">${p.price_minorista}</td>
+            <td class="p-2">
+            <button class="bg-green-600 text-white px-2 py-1 rounded" on:click={() => onAdd(p)}>Agregar</button>
+            </td>
+        </tr>
+        ))}
+    </tbody>
+</table>
